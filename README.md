@@ -2,6 +2,9 @@ Criar projeto
 ```
 python3 -m venv venv
 django-admin startproject tennisconcierge
+pip install djangorestframework
+pip install markdown
+pip install django-filter
 pip freeze > requirements.txt
 ```
 
