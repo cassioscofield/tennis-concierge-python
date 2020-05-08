@@ -22,6 +22,6 @@ python3 manage.py makemigrations
 
 Rodar projeto
 ````
-pip install
+pip install -r requirements.txt
 python3 manage.py runserver
 ```
