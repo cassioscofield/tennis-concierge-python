@@ -16,9 +16,7 @@ Including another URLconf
 from django.urls import path
 from .views import (
     ReservasListAPIView,
-    ReservasRetrieveAPIView,
-    ReservasUpdateAPIView,
-    ReservasDestroyAPIView,
+    ReservaAPIView,
     ReservasCreateAPIView
 )
 
@@ -49,8 +47,8 @@ urlpatterns = [
         ),
         name='/reserva'),
     path('/<int:id>',  method_dispatch(
-            GET = ReservasRetrieveAPIView.as_view(),
-            PUT = ReservasUpdateAPIView.as_view(),
-            DELETE = ReservasDestroyAPIView.as_view()
+            GET = ReservaAPIView.as_view(),
+            PUT = ReservaAPIView.as_view(),
+            DELETE = ReservaAPIView.as_view()
         ), name='/reserva/id')
 ]

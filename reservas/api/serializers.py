@@ -12,7 +12,8 @@ class ReservaSerializer(ModelSerializer):
         'valor',
         'duracao',
         'inicioEm',
-        'fimEm'
+        'fimEm',
+        'canceladoEm'
     ]
 
 class ReservaCreateSerializer(ModelSerializer):
@@ -21,6 +22,10 @@ class ReservaCreateSerializer(ModelSerializer):
     fields = [
         'id',
         'tipo',
+        'status',
+        'valor',
+        'duracao',
+        'duracao',
         'inicioEm',
         'fimEm'
     ]
