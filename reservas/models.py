@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Reserva(models.Model):
@@ -24,8 +25,8 @@ class Reserva(models.Model):
   canceladoEm = models.DateTimeField(null=True, blank=True)
 
   def save(self, *args, **kwargs):
-    self.valor = 0
-    self.duracao = 0
+    self.duracao = (self.fimEm - self.inicioEm).seconds/60
+    self.valor = self.duracao * 0.5
     super(Reserva, self).save(*args, **kwargs)
   def __str__(self):
     return self.tipo + self.status
