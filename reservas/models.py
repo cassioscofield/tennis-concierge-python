@@ -1,22 +1,21 @@
 from django.db import models
 from datetime import datetime
 from django.utils import timezone
-from django.core.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError
 
 # Create your models here.
 class Reserva(models.Model):
-  
+
   def _valida_hora_quebrada(data):
     segundosInicio = data.second
-    print('segundosInicio ' + str(segundosInicio))
     minutosInicio = data.minute
-    print('minutosInicio ' + str(minutosInicio))
     if minutosInicio != 0 or segundosInicio != 0:
-      raise ValidationError(
-        ('nao pode ser hora quebrada'),
-        params={'data': data},
-      )
+      raise ValidationError('nao pode ser hora quebrada')
 
+  def _periodo_minimo(reserva, duracao):
+    if (duracao < 60):
+      raise ValidationError({'duracao': ['duracao < 60 minutos']})
+  
   STATUS_ENUM = (
        ('pago', 'Paga'),
        ('pendente', 'Pendente'),
@@ -39,6 +38,7 @@ class Reserva(models.Model):
 
   def save(self, *args, **kwargs):
     self.duracao = (self.fimEm - self.inicioEm).seconds/60
+    self._periodo_minimo(self.duracao)
     self.valor = self.duracao * 0.5
     super(Reserva, self).save(*args, **kwargs)
 
