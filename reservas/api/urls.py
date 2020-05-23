@@ -17,7 +17,8 @@ from django.urls import path
 from .views import (
     ReservasListAPIView,
     ReservaAPIView,
-    ReservasCreateAPIView
+    ReservasCreateAPIView,
+    DisponibilidadeCustomViewSet
 )
 
 def method_dispatch(**table):
@@ -41,6 +42,12 @@ urlpatterns = [
     # path('/<int:id>/update',  ReservasUpdateAPIView.as_view(), name='update'),
     # path('/<int:id>/destroy',  ReservasDestroyAPIView.as_view(), name='destroy'),
     # path('/create',  ReservasCreateAPIView.as_view(), name='create'),
+    
+    path('/disponibilidade', method_dispatch(
+            GET = DisponibilidadeCustomViewSet.as_view({'get': 'get_disponibilidade'}),
+            POST = DisponibilidadeCustomViewSet.as_view({'post': 'post_disponibilidade'})
+        ),
+        name='/disponibilidade'),
     path('', method_dispatch(
             GET = ReservasListAPIView.as_view(),
             POST = ReservasCreateAPIView.as_view()
